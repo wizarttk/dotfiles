@@ -1,0 +1,119 @@
+/*******************************************************************************
+ * Rofi 配置文件 - Catppuccin Mocha 极简纯净版 (纯应用发射器)
+ *******************************************************************************/
+
+configuration {
+    modi:                       "drun";
+    show-icons:                 true;
+    icon-theme:                 "Papirus-Dark";
+    display-drun:               "󰍉  应用";
+    drun-display-format:        "{icon} {name}";
+    font:                       "JetBrainsMono Nerd Font 11";
+    terminal:                   "alacritty";
+}
+
+/* 彻底禁用 Rofi 内置默认样式 */
+@theme "/dev/null"
+
+* {
+    bg-col:                     #a01e1e2e;  /* ARGB 60% 透明底色，透出 Picom 双重川濑毛玻璃 */
+    bg-col-light:               #313244;    /* 搜索框背景 */
+    border-col:                 #cba6f7;    /* Mauve 紫色高亮边框 */
+    selected-col:               #45475a;    /* 选中项高亮卡片色 */
+    blue:                       #89b4fa;    /* 搜索标签蓝 */
+    fg-col:                     #cdd6f4;    /* 主文字色 */
+    grey:                       #6c7086;    /* 次要文字色 */
+
+    background-color:           transparent;
+    text-color:                 @fg-col;
+    margin:                     0;
+    padding:                    0;
+}
+
+window {
+    width:                      620px;
+    height:                     400px;      /* 删掉底部栏后将高度调小，更紧凑精致 */
+    location:                   center;
+    anchor:                     center;
+    border:                     2px;
+    border-color:               @border-col;
+    border-radius:              16px;
+    background-color:           @bg-col;
+    padding:                    20px;
+}
+
+mainbox {
+    background-color:           transparent;
+    children:                   [ "inputbar", "listview" ]; /* 仅保留搜索框和应用列表 */
+    spacing:                    15px;
+}
+
+/* ==================== 顶栏搜索框 (Inputbar) ==================== */
+inputbar {
+    children:                   [ "prompt", "entry" ];
+    background-color:           @bg-col-light;
+    border-radius:              10px;
+    padding:                    4px;
+}
+
+prompt {
+    background-color:           @blue;
+    padding:                    8px 16px;
+    text-color:                 #11111b;
+    border-radius:              8px;
+}
+
+entry {
+    padding:                    8px 12px;
+    text-color:                 @fg-col;
+    placeholder:                "搜索应用...";
+    placeholder-color:          @grey;
+    vertical-align:             0.5;
+}
+
+/* ==================== 应用列表区域 (Listview) ==================== */
+listview {
+    border:                     0px;
+    padding:                    4px 0px;
+    columns:                    1;
+    lines:                      6;
+    spacing:                    6px;
+    background-color:           transparent;
+    scrollbar:                  false;
+}
+
+element {
+    padding:                    10px 14px;
+    background-color:           transparent;
+    text-color:                 @fg-col;
+    border-radius:              10px;
+}
+
+element-icon {
+    size:                       28px;
+    margin:                     0px 12px 0px 0px;
+}
+
+element-text {
+    vertical-align:             0.5;
+    text-color:                 inherit;
+}
+
+/* 清空所有未选中行的背景底色 */
+element normal.normal {
+    background-color:           transparent;
+    text-color:                 @fg-col;
+}
+
+element alternate.normal {
+    background-color:           transparent;
+    text-color:                 @fg-col;
+}
+
+/* 选中项：悬浮胶囊样式 */
+element selected.normal {
+    background-color:           @selected-col;
+    text-color:                 @border-col;
+    border:                     1px;
+    border-color:               #585b70;
+}

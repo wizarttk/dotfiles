@@ -1,0 +1,100 @@
+gui:
+  # UI 主题与颜色配置（EVA主题）
+  theme:
+    activeBorderColor:
+      - "#C86CFF" # 激活窗口边框：超亮初号机紫
+      - bold
+    inactiveBorderColor:
+      - "#808080" # 非激活窗口边框：中灰
+    searchingActiveBorderColor:
+      - "#FF4C4C" # 搜索时边框：鲜红警示
+    optionsTextColor:
+      - "#B6FF40" # 快捷键提示：荧光黄绿
+    selectedLineBgColor:
+      - "#4B0082" # 选中行背景：靛紫（在黑底下极清晰）
+    inactiveViewSelectedLineBgColor:
+      - "#660099" # 非激活选中行背景：紫红调（非激活选中行也醒目）
+    cherryPickedCommitFgColor:
+      - "#000000" # cherry-pick 前景：黑
+    cherryPickedCommitBgColor:
+      - "#FF99CC" # cherry-pick 背景：粉红高亮（更柔和更显眼）
+    markedBaseCommitFgColor:
+      - "#000000" # 变基基准提交前景：黑
+
+    markedBaseCommitBgColor:
+      - "#FFE680" # 变基基准提交背景：金色提亮
+
+    unstagedChangesColor:
+      - "#FF7256" # 未暂存变更：珊瑚红
+
+    defaultFgColor:
+      - "#FFFFFF" # 默认文字颜色：纯白
+
+  # 界面布局与显示设置
+  # 窗口边框样式：rounded | single | double | hidden | bold
+  border: double
+  # 放大当前聚焦的侧边面板，提供手风琴效果
+  expandFocusedSidePanel: true
+  # 放大面板的高度权重
+  expandedSidePanelWeight: 2
+  # 提交时间显示格式
+  timeFormat: "02 Jan 2006"
+  # 24 小时内的时间显示格式
+  shortTimeFormat: "3:04PM"
+  # 在文件视图中显示每个文件的修改行数
+  showNumstatInFilesView: true
+  # 长行自动换行，适合处理长文本
+  wrapLinesInStagingView: true
+  # 启用 Nerd Fonts v3 图标，让界面更美观
+  nerdFontsVersion: "3"
+  # 显示文件列表中的文件图标
+  showFileIcons: true
+  # 搜索过滤模式：substring（子串匹配）| fuzzy（模糊匹配）
+  filterMode: fuzzy
+  # 状态面板视图模式：dashboard 提供概览，allBranchesLog 显示所有分支日志
+  statusPanelView: dashboard
+  # 提交作者名显示长度（展开视图），这里设为 17，让长名字也能完整显示
+  commitAuthorLongLength: 17
+  # 提交哈希显示长度，设为 8，够用且不占空间
+  # commitHashLength: 8
+  # 在分支视图中显示提交哈希，方便快速识别分支
+  showBranchCommitHash: true
+  # 显示与基础分支的偏离情况，方便了解分支状态
+  showDivergenceFromBaseBranch: arrowAndNumber
+  # 自动分屏模式，只有当一个文件同时有暂存和未暂存的修改时才分屏
+  splitDiff: auto
+
+  # 交互行为设置
+  # 启用鼠标事件支持
+  mouseEvents: true
+  # 当你尝试提交但没有任何暂存文件时，LazyGit 会自动将所有未暂存的文件添加到暂存区并提交，而不会弹出警告提示。
+  skipNoStagedFilesWarning: false
+  # 在重置工作区时，显示爆炸动画
+  animateExplosion: true
+  # 切换面板时，如果目标面板已激活，则切换标签页
+  switchTabsWithPanelJumpKeys: false
+  # pop stash 后自动跳转到文件面板，方便继续工作
+  switchToFilesAfterStashPop: true
+
+# 退出 Lazygit 时显示确认弹窗
+confirmOnQuit: false
+
+# 优化 git 行为
+git:
+  # 自动抓取远程分支更新
+  autoFetch: true
+  # 自动刷新文件和子模块
+  autoRefresh: true
+  # 自动快进主分支
+  autoForwardBranches: onlyMainBranches
+  # 默认在提交时使用 topo-order 排序，使提交历史图更易读
+  log:
+    order: topo-order
+    showGraph: always
+  # 在提交信息中启用 emoji 解析，让提交信息更生动
+  parseEmoji: true
+
+keybinding:
+  universal:
+    openFile: O # 打开文件时候会卡住或出错，因此将原本容易碰到的 o 改为 O
+

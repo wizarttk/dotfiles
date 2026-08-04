@@ -1,0 +1,31 @@
+# ========================
+# 1. Modmap: 单键物理替换
+# ========================
+modmap:
+  - name: Global CapsLock to Esc
+    remap:
+      CapsLock: Esc
+# # ========================
+# # 2. keymap: 组合键映射
+# # ========================
+# keymap:
+#   - name: Global C-h to Backspace (Except Terminals)
+#     # 核心功能：排除 Alacritty 和 Neovim
+#     # 注意：这里的名字区分大小写，一定要写对窗口类名
+#     application:
+#       not: [Alacritty, Neovim, neovim] # 这么写的话，会使<C-S-h>全删失效
+#     remap:
+#       C-h: Backspace
+
+# (可选) 如果你需要针对特定 App 的映射，可以这样写：
+# - name: Edge Only
+#   application:
+#     only: [Microsoft-edge]
+#   remap:
+#     C-u: PageUp
+#
+#
+#
+# 小贴士：如何查看窗口名字？
+# 在终端运行 xprop WM_CLASS，鼠标点击你的窗口，输出的第二个字符串就是你需要填在 not: [...] 里的名字。
+

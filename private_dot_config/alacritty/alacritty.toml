@@ -1,0 +1,93 @@
+# ==============================================================================
+# Alacritty 终端配置文件
+# 主题方案：Catppuccin Mocha（猫咪咖啡）—— 通过 general.import 引入官方主题文件
+# 适用环境：Arch Linux + dwm + Picom (GLX + Dual-Kawase 毛玻璃)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 0. 主题引入 (Theme Import)
+# ------------------------------------------------------------------------------
+# 官方 Catppuccin Mocha 主题文件，下载方式见对话说明：
+#   mkdir -p ~/.config/alacritty/themes
+#   git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty
+[general]
+import = [
+    "~/.config/alacritty/alacritty-theme/themes/catppuccin_mocha.toml"
+]
+
+# ------------------------------------------------------------------------------
+# 1. 窗口设置 (Window)
+# ------------------------------------------------------------------------------
+[window]
+# 窗口透明度：设为 1.0！完全交由 Picom 规则 (opacity = 0.80) 统一渲染
+# （避免 Alacritty 与 Picom 透明度二次叠加导致文字发虚发暗）
+opacity = 0.65
+
+# 窗口内边距：x 为左右留白 14px，y 为上下留白 12px
+# 关键作用：防止第一行和最左侧文字被 Picom 的 12px 窗口圆角切边，留出呼吸感
+padding = { x = 14, y = 12 }
+
+# 动态内边距：根据 DPI 和窗口缩放自动调整
+dynamic_padding = true
+
+# 无边框模式：由 dwm 统一管理窗口
+decorations = "None"
+
+# 启动模式：标准窗口模式，方便 dwm 进行平铺
+startup_mode = "Windowed"
+
+# ------------------------------------------------------------------------------
+# 2. 字体设置 (Font)
+# ------------------------------------------------------------------------------
+[font]
+# 字体基础字号
+size = 12.5
+
+# 常规字体（JetBrainsMono 带 Nerd Font 图标扩展）
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+# 粗体字体
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+# 斜体字体
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+# ------------------------------------------------------------------------------
+# 3. 光标与滚屏细节 (Cursor & Scrolling)
+# ------------------------------------------------------------------------------
+# [cursor]
+# # 默认光标样式：Beam (竖线) + 呼吸闪烁（现代编辑器体验）
+# style = { shape = "Beam", blinking = "On" }
+# # 闪烁间隔（毫秒）
+# blink_interval = 500
+#
+[scrolling]
+# 终端历史回滚最大行数（10000 行，方便查看长日志与编译输出）
+history = 10000
+# 鼠标滑轮滚动乘数
+multiplier = 3
+
+# ------------------------------------------------------------------------------
+# 4. 鼠标与快捷键绑定 (Mouse & Keyboard Bindings)
+# ------------------------------------------------------------------------------
+# [mouse]
+# # 打字时自动隐藏鼠标指针
+# hide_when_typing = true
+
+# 禁用 Ctrl + Shift + F 触发终端内置搜索框（避免抢占 LazyVim/Tmux 快捷键）
+[[keyboard.bindings]]
+key = "F"
+mods = "Control|Shift"
+action = "None"
+
+# 禁用 Ctrl + Shift + Space 触发 Alacritty Vi 模式（彻底杜绝 Fcitx5 X11 锁死 Bug）
+[[keyboard.bindings]]
+key = "Space"
+mods = "Control|Shift"
+action = "None"

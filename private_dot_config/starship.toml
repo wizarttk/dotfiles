@@ -1,0 +1,83 @@
+# ==============================================================================
+# Starship 提示符配置文件 - Catppuccin Mocha 极客胶囊岛风格
+# ==============================================================================
+
+# 在命令行前添加空行
+add_newline = true
+
+# 全局 Prompt 拼接结构
+format = """
+[](#89b4fa)$os$username[](fg:#89b4fa bg:#313244)\
+$directory\
+[](fg:#313244 bg:#45475a)\
+$git_branch\
+$git_status\
+[](fg:#45475a bg:#313244)\
+$nodejs$rust$golang$python\
+[](fg:#313244 bg:#181825)\
+$time\
+[ ](fg:#181825)\
+\n$character"""
+
+# 命令行输入符 (❯)
+[character]
+success_symbol = "[❯](bold #a6e3a1)" # 成功时亮绿
+error_symbol = "[❯](bold #f38ba8)"   # 报错时亮红
+
+# 操作系统图标
+[os]
+disabled = false
+style = "bold bg:#89b4fa fg:#11111b"
+symbols = { Arch = "𝕻𝖍𝖆𝖓𝖙𝖔𝖒" }
+# 用户名
+[username]
+show_always = false
+style_user = "bg:#89b4fa fg:#11111b"
+style_root = "bg:#89b4fa fg:#11111b"
+format = '[$user]($style)'
+
+# 当前工作目录
+[directory]
+style = "bg:#313244 fg:#cdd6f4"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Git 分支
+[git_branch]
+symbol = " "
+style = "bg:#45475a fg:#cba6f7"
+format = '[ $symbol$branch ]($style)'
+
+# Git 状态 (修改/新增/未提交)
+[git_status]
+style = "bg:#45475a fg:#f38ba8"
+format = '[$all_status$ahead_behind ]($style)'
+
+# 语言环境指示器 (有对应项目文件时自动显示)
+[nodejs]
+symbol = " "
+style = "bg:#313244 fg:#a6e3a1"
+format = '[ $symbol($version) ]($style)'
+
+[rust]
+symbol = " "
+style = "bg:#313244 fg:#fab387"
+format = '[ $symbol($version) ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#313244 fg:#74c7ec"
+format = '[ $symbol($version) ]($style)'
+
+[python]
+symbol = " "
+style = "bg:#313244 fg:#f9e2af"
+format = '[ $symbol($version) ]($style)'
+
+# 时间显示
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:#181825 fg:#897086"
+format = '[ 󰅐 $time ]($style)'
