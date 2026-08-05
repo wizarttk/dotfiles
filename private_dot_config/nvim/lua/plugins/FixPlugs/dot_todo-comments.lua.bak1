@@ -1,0 +1,67 @@
+-- 1. 改变关键词的图标，2. desc描述改为中文
+return {
+  "folke/todo-comments.nvim",
+  cmd = { "TodoTrouble", "TodoTelescope" },
+  event = "LazyFile",
+  opts = {
+    keywords = {
+      FIX = {
+        icon = "🐞", -- 图标：经典的瓢虫，直接关联到“BUG”
+        color = "error", -- 颜色：沿用主题的“错误”色
+        alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+      },
+      TODO = {
+        icon = "📋", -- 图标：剪贴板，代表任务清单
+        color = "info", -- 颜色：沿用主题的“信息”色
+        alt = { "待做" },
+      },
+      HACK = {
+        icon = "🧩", -- 图标：拼图，表示一个巧妙但可能不完美的解决方案
+        color = "warning", -- 颜色：沿用主题的“警告”色
+      },
+      WARN = {
+        icon = "🚩", -- 图标：旗帜，作为一个潜在问题的警示标记
+        color = "#EAB308", -- 颜色：使用一种更深沉的黄色来表示警告
+        alt = { "WARNING", "XXX", "警告" },
+      },
+      PERF = {
+        icon = "⚡", -- 图标：闪电，代表速度和效率
+        color = "#10B981", -- 颜色：使用翡翠绿，给人一种高效、流畅的感觉
+        alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE", "改进", "优化" },
+      },
+      NOTE = {
+        icon = "🧠", -- 图标：大脑，代表想法、笔记或需要思考的地方
+        color = "hint", -- 颜色：沿用主题的“提示”色
+        alt = { "INFO" },
+      },
+      TEST = {
+        icon = "🔬", -- 图标：显微镜，寓意需要仔细检查和测试
+        color = "#60A5FA", -- 颜色：使用柔和的蓝色，代表严谨和科学
+        alt = { "TESTING", "PASSED", "FAILED" },
+      },
+      NEW = {
+        icon = "💡", -- 图标：灯泡，代表新的想法或功能
+        color = "#F472B6", -- 颜色：使用明亮的粉色，使其在代码中引人注目
+        alt = { "新增" },
+      },
+    },
+  },
+  keys = {
+    { "]t", function() require("todo-comments").jump_next() end, desc = "跳转到下一个 TODO 注释" },
+    { "[t", function() require("todo-comments").jump_prev() end, desc = "跳转到上一个 TODO 注释" },
+    { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "打开 TODO 面板（Trouble）" },
+    { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "打开 TODO/FIX/FIXME 面板（Trouble）" },
+    { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "搜索 TODO 注释" },
+    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "搜索 TODO/FIX/FIXME 注释" },
+  },
+}
+
+-- FIX:
+-- TODO:
+-- HACK:
+-- WARN:
+-- PERF:
+-- NOTE:
+-- TEST:
+-- NEW:
+--#0EA5E9

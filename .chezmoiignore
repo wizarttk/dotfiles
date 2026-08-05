@@ -1,0 +1,52 @@
+# ============================================================
+# 注意：以下路径都是相对于 $HOME(目标目录)的,而不是相对于
+# source 目录,也不是相对于 .config 本身,所以都带 .config/ 前缀。
+# ============================================================
+
+# ---- chezmoi 自己的状态/配置目录 ----
+# chezmoistate.boltdb 本身已被 chezmoi 保护、拒绝 add,
+# 这里显式写一条,避免整目录批量 add 时报错中断。
+.config/chezmoi
+
+# ---- git 内部文件 ----
+# 防止手动 clone 进 .config 下的仓库(比如 alacritty-theme)
+# 把 .git 里的 objects/refs/hooks 也整个 add 进 source state。
+**/.git
+**/.git/**
+
+# ---- 运行时/会话产物 ----
+# 每次开机、每次登录都会变,跟"配置"无关。
+.config/fcitx/dbus
+.config/ibus/bus
+.config/pulse/cookie
+
+# ---- 工具自身缓存/遥测 ----
+.config/go/telemetry
+
+# ---- 编辑器/调试留下的临时、备份文件 ----
+*.bak
+*_bak
+*~
+*.swp
+.config/nvim/spell/en.utf-8.add.spl
+
+# ---- 来路不明的空目录/杂项 ----
+# 不确定用途的话先忽略,确认有用再删掉对应行。
+.config/procps
+
+# ---- 第三方主题仓库 ----
+# 建议改用 .chezmoiexternal.toml 的 git-repo 类型自动拉取,
+# 这样 source 仓库里不用存几百个主题文件。
+# .config/alacritty/alacritty-theme
+
+# ============================================================
+# 没有写进来、需要你自己判断的部分:
+#
+# fish/functions、fish/conf.d、fish/completions、yazi/plugins
+#   这几个目录里手写文件和插件管理器(fisher / ya pkg)自动生成的
+#   文件混在一起,一刀切忽略容易把自己手写的东西漏掉,建议手动过一遍。
+#
+# nvim/lazy-lock.json
+#   跟不跟踪看个人偏好:跟踪保证多机器插件版本一致,
+#   不跟踪则各自使用最新版本。
+# ============================================================
