@@ -2,7 +2,6 @@
 return {
   "folke/tokyonight.nvim",
   opts = {
-    -- djakdjaskdj
     plugins = {
       snacks = true,
     },
