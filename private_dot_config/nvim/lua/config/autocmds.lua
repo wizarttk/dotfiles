@@ -4,7 +4,7 @@
 -- VIM命令的文档：https://yianwillis.github.io/vimcdoc/doc/autocmd.html#BufNew
 
 --------------------------------------------------------------------------------------------------------------------------
--- 自动输入法切换
+-- 1. Fcitx5 退出插入模式自动关输入法 (切回英文)
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   pattern = { "*" },
   callback = function()
@@ -15,65 +15,32 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   end,
 })
 
--- 注释时自动切换输入法
+-- 2. 进入注释区自动开启中文输入法 (增加空值保护与健壮性)
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   pattern = { "*" },
   callback = function()
-    -- 获取当前行
+    local commentstring = vim.bo.commentstring
+    if not commentstring or commentstring == "" then return end
+
     local line = vim.api.nvim_get_current_line()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local col = cursor[2]
 
-    -- 获取当前光标所在的列
-    local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+    -- 去除 %s 并剪裁两端空格
+    local symbol = commentstring:gsub("%%s", ""):gsub("^%s*", ""):gsub("%s*$", "")
+    if symbol == "" then return end
 
-    -- 获取注释符号（去掉 %s ）
-    local commentstring = vim.bo.commentstring:gsub("%%s", "")
-
-    -- 查找注释符号在行中的位置
-    local comment_pos = line:find(commentstring, 1, true)
-
-    -- 如果找到了注释符号，并且光标位于注释符号之后
-    if comment_pos and col > comment_pos then
+    local comment_pos = line:find(symbol, 1, true)
+    if comment_pos and col >= comment_pos then
       vim.fn.system("fcitx5-remote -o")
-      -- else
-      --   return
-    end
-  end
-})
-
--- 自动插入shebang
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "*.sh" }, -- 匹配
-  callback = function()
-    local firstLine = vim.fn.getline(1)
-    if string.match(firstLine, "#!") then
-      return
-    else
-      vim.fn.setbufline(vim.fn.bufnr(), 1, "#!/usr/bin/bash")
     end
   end,
 })
 
--- linter自动命令
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+-- 3. 新建 Shell 脚本时自动插入可移植性更高的 Shebang
+vim.api.nvim_create_autocmd({ "BufNewFile" }, {
   pattern = { "*.sh" },
   callback = function()
-    require('lint').try_lint("shellcheck")
-  end
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, { "#!/usr/bin/env bash", "" })
+  end,
 })
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.js" },
-  callback = function()
-    require("lint").try_lint("oxlint")
-  end
-})
-
-
-
-
--- -- 自动切换zen模式的按键
--- -- 1.切换窗口的时候进行检测
--- vim.api.nvim_create_autocmd({ "WinEnter" }, {
---   -- 2. 判断是否是在zen-mode
---   -- require("snacks").setup({
---   -- })
--- })

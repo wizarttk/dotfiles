@@ -9,6 +9,9 @@ vim.opt.spell = true                             -- 拼写检查
 vim.opt.spelllang = { "en_us", "cjk", "en" }     -- 设置拼写检查的语言
 vim.opt.spelloptions = "camel"                   -- 设置驼峰检查
 vim.g.snacks_animate = true                      -- 禁用所有动画
+vim.opt.background = "dark"                      -- 强制背景为 dark
+
+
 -- vim.opt.formatoptions = vim.opt.formatoptions - "{j}"
 
 -- vim.opt.list =false  -- 显示不可见字符（空格、制表符...）
