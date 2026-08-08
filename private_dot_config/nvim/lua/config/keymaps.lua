@@ -1,5 +1,5 @@
 --
--- <leader>cs 代码大纲
+-- <leader>1 代码大纲
 -- <leader>cd 突出显示所在行的错误
 --
 -- <leader>wm 当前窗口最大化（Zoom Mode）
@@ -36,14 +36,10 @@ local ctrl_d_cmd = function()
   local after_line = cur_line + 5       -- 移动后的光标行号
   local bottom_line = vim.fn.line("w$") -- 获取窗口最后一行的行号 （w$ 表示窗口最后一行；为0表示第一行）
   -- local bottom_line = vim.fn.line('w0') + vim.fn.winheight(0) - 1 -- 窗口最后一行光标行号 = 窗口第一行的行号 + 窗口行号高度 -1
-  if bottom_line - after_line <= 4 then -- 如果移动后行号位于最后四行
-    -- vim.cmd("norm 3294")
+  if bottom_line - after_line <= 4 then
     vim.cmd("normal! zz")
-    -- vim.fn.cursor({after_line,0}) 等价于下面的:
-    vim.cmd("normal! 4j")
-  else
-    vim.cmd("normal! 4j")
   end
+  vim.cmd("normal! 4j")
 end
 local ctrl_u_cmd = [[<cmd>norm 4k<cr>]]
 
@@ -104,8 +100,8 @@ local mappings = {
   { mode_nv,  "0",       "q",                    { desc = "Macro" } },
 
   { mode_nv,  "<C-f>",   "/",                    { desc = "Flash search" } },
-  { mode_nv,  "<C-d>",   ctrl_d_cmd,             { desc = "move down 5 lines" } },
-  { mode_nv,  "<C-u>",   ctrl_u_cmd,             { desc = "move up 5 lines" } },
+  { mode_nv,  "<C-d>",   ctrl_d_cmd,             { desc = "move down 4 lines" } },
+  { mode_nv,  "<C-u>",   ctrl_u_cmd,             { desc = "move up 4 lines" } },
 
   -- mode_n
   { mode_n,   "<C-S-h>", "<cmd>bprevious<cr>zz", { desc = "Prev Buffer then zz" } },
@@ -136,7 +132,7 @@ local mappings = {
 
   -- FIX: 将toggle outline的映射从<leader>cs -> <leader>1
   { mode_n, "<leader>cs", "<Nop>" },
-  { mode_n, "<leader>1",  "<cmd>Outline<cr>",     desc = "Toggle Outline" },
+  { mode_n, "<leader>1",  "<cmd>Outline<cr>",     { desc = "Toggle Outline" } },
 
   { mode_n, "''",         "<cmd>norm gsd'<cr>",   { desc = "surround del '" } },
   { mode_n, '""',         '<cmd>norm gsd"<cr>',   { desc = 'surround del "' } },

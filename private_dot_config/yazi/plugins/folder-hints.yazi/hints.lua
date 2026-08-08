@@ -47,8 +47,8 @@ return {
 直接更改了配置的原文件（没用 chezmoi edit）：
   1. 查看本地家目录与 Chezmoi 仓库的差异
     chezmoi diff
-  2. 将家目录的新改动重新拉回 Chezmoi 源仓库
-    chezmoi re-add ~/.zshrc                                          czr
+  2. 将家目录的新改动重新拉回 Chezmoi 源仓库(已追踪的文件)
+    chezmoi re-add
   3. 提交并推送
     chezmoi cd
     git add .
