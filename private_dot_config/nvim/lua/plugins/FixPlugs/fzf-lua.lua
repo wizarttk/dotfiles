@@ -3,6 +3,8 @@ return {
   "ibhagwan/fzf-lua",
   -- 定义何时加载插件（懒加载）
   cmd = "FzfLua",
+  enabled = false,
+
   -- 配置选项
   opts = function(_, opts)
     -- 导入必要的模块

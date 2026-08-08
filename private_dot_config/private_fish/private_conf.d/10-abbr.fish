@@ -58,6 +58,7 @@ if command -q chezmoi
     abbr -a czc 'chezmoi cd' # 直接进入 chezmoi 的源仓库目录
     abbr -a czr 'chezmoi re-add' # 重新添加/更新家目录中已改动的文件
     abbr -a czaa 'chezmoi add' # 添加新文件到 chezmoi 管理
+    abbr -a czf 'chezmoi forget' # 停止管理指定的目标文件
 end
 
 # trash-cli

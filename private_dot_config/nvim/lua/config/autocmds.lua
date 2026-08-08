@@ -44,3 +44,5 @@ vim.api.nvim_create_autocmd({ "BufNewFile" }, {
     vim.api.nvim_buf_set_lines(0, 0, 0, false, { "#!/usr/bin/env bash", "" })
   end,
 })
+
+require("config.abbrev")

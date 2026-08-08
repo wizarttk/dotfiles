@@ -50,11 +50,14 @@ return {
   2. 将家目录的新改动重新拉回 Chezmoi 源仓库(已追踪的文件)
     chezmoi re-add
   3. 提交并推送
+
+删除了某个已追踪的文件：
+  方法一：直接执行 chezmoi forget
+    chezmoi forget ~/.bashrc                                         czf
+  方法二：进入源码库手动删除
     chezmoi cd
-    git add .
-    git commit -m "fix: updated zshrc directly"
-    git push
-    exit
+    git rm dot_bashrc
+  最后,提交并推送
 
 阶段三：新设备上部署（一键搞定）
   将你的 GitHub 仓库克隆下来并直接应用到新机器
