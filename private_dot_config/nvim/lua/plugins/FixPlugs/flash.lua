@@ -23,7 +23,7 @@ return {
   },
   keys = {
     -- 1. 将 f 改为全屏 2D 瞬移跳转
-    -- { "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash 全局跳转" },
+    { "f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash 全局跳转" },
 
     -- 2. 将 s 改为 Treesitter 智能语法块选择
     { "s", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter 块选择" },

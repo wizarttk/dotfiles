@@ -1,5 +1,7 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
 gui:
-  # UI 主题与颜色配置（EVA主题）
+  # ========================= UI 主题与颜色配置（EVA 主题）=========================
   theme:
     activeBorderColor:
       - "#C86CFF" # 激活窗口边框：超亮初号机紫
@@ -20,15 +22,23 @@ gui:
       - "#FF99CC" # cherry-pick 背景：粉红高亮（更柔和更显眼）
     markedBaseCommitFgColor:
       - "#000000" # 变基基准提交前景：黑
-
     markedBaseCommitBgColor:
       - "#FFE680" # 变基基准提交背景：金色提亮
-
     unstagedChangesColor:
       - "#FF7256" # 未暂存变更：珊瑚红
-
     defaultFgColor:
       - "#FFFFFF" # 默认文字颜色：纯白
+
+  # ✨ 新增：按分支名前缀自动着色，一眼分辨分支类型（沿用同一套 EVA 配色）
+  branchColorPatterns:
+    "^feature/": "#B6FF40" # 功能分支：荧光黄绿
+    "^(fix|bugfix)/": "#FF7256" # 修复分支：珊瑚红
+    "^hotfix/": "#FF4C4C" # 紧急修复：鲜红警示
+    "^release/": "#FFE680" # 发布分支：金色
+
+  # ✨ 可选：固定你自己提交的颜色，不受随机配色影响（把 Your Name 换成 git user.name）
+  # authorColors:
+  #   "Your Name": "#B6FF40"
 
   # 界面布局与显示设置
   # 窗口边框样式：rounded | single | double | hidden | bold
@@ -64,20 +74,36 @@ gui:
   # 自动分屏模式，只有当一个文件同时有暂存和未暂存的修改时才分屏
   splitDiff: auto
 
+  # ✨ 新增：文件树中文件夹优先排列，浏览项目结构更清晰
+  fileTreeSortOrder: foldersFirst
+
+  # ✨ 新增：接近列表/长 diff 底部时提前滚动，浏览更顺滑（默认 2，这里调大一点）
+  scrollOffMargin: 3
+  # 滚动方式：margin（提前滚动）| jump（跳到屏幕中间）
+  scrollOffBehavior: margin
+
+  # ✨ 新增：启动时不显示随机小贴士，界面更干净清爽
+  showRandomTip: true
+
   # 交互行为设置
   # 启用鼠标事件支持
   mouseEvents: true
   # 当你尝试提交但没有任何暂存文件时，LazyGit 会自动将所有未暂存的文件添加到暂存区并提交，而不会弹出警告提示。
-  skipNoStagedFilesWarning: false
+  skipNoStagedFilesWarning: true
   # 在重置工作区时，显示爆炸动画
   animateExplosion: true
   # 切换面板时，如果目标面板已激活，则切换标签页
   switchTabsWithPanelJumpKeys: false
   # pop stash 后自动跳转到文件面板，方便继续工作
   switchToFilesAfterStashPop: true
+  # ✨ 新增：apply stash 后也跳转到文件面板，和 pop 的行为保持一致
+  switchToFilesAfterStashApply: true
 
 # 退出 Lazygit 时显示确认弹窗
 confirmOnQuit: false
+
+# ✨ 新增：关闭首次运行时的介绍弹窗，减少干扰
+disableStartupPopups: true
 
 # 优化 git 行为
 git:
@@ -94,7 +120,41 @@ git:
   # 在提交信息中启用 emoji 解析，让提交信息更生动
   parseEmoji: true
 
+  # ✨ 新增：diff 默认显示更多上下文行，理解改动上下文更容易（默认 3，这里调到 5）
+  diffContextSize: 5
+
+  # ✨ 可选：根据分支名自动生成 commit 前缀，例如 feature/AB-123 → "[AB-123] "
+  # 按你团队/自己的分支命名规则调整下面的正则
+  # commitPrefix:
+  #   - pattern: "^(feature|fix|hotfix)\\/(\\w+-\\d+).*"
+  #     replace: "[$2] "
+
+  # ✨ 可选：如果本机装了 delta（更好看、带语法高亮的 diff 分页器），取消注释启用
+  # 安装：brew install git-delta（或对应发行版的包管理器）
+  # pagers:
+  #   - pager: delta --dark --paging=never
+
+os:
+  # ✨ 可选：按你常用的编辑器取消注释一行，设置后 'e' 键会用它打开文件
+  # 可选值：vim/nvim/lvim/emacs/nano/micro/vscode/sublime/bbedit/kakoune/helix/xcode/zed/acme
+  editPreset: "nvim"
+
+  # ✨ 可选：在 tmux 里希望复制内容能同步到系统剪贴板（OSC52），取消注释
+  # 并在 tmux.conf 里加一行：set -g allow-passthrough on
+  # copyToClipboardCmd: >
+  #   if [[ "$TERM" =~ ^(screen|tmux) ]]; then
+  #     printf "\033Ptmux;\033\033]52;c;$(printf {{text}} | base64 -w 0)\a\033\\" > /dev/tty
+  #   else
+  #     printf "\033]52;c;$(printf {{text}} | base64 -w 0)\a" > /dev/tty
+  #   fi
+
 keybinding:
   universal:
-    openFile: O # 打开文件时候会卡住或出错，因此将原本容易碰到的 o 改为 O
-
+    # ✨ 新增：ctrl+j / ctrl+k 作为光标上下移动的额外按键（不影响原有的 ↑↓ 和 j/k）
+    nextItem-alt: <ctrl+j>
+    prevItem-alt: <ctrl+k>
+  # ✨ 新增：commits 面板默认也用 ctrl+j/ctrl+k 移动选中的提交，与上面的全局光标移动冲突，
+  # 这里去掉这两个键，只保留原本就有的备用键 alt+↓ / alt+↑，功能不受影响
+  commits:
+    moveDownCommit: <alt-down>
+    moveUpCommit: <alt-up>
